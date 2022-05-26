@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "450003475297",
+    "project_id": "health-passport-3d4b3",
+    "storage_bucket": "health-passport-3d4b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450003475297:android:1f6a1e4015b11ec8628320",
+        "android_client_info": {
+          "package_name": "com.example.untitled"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450003475297-81g3ju1484g9s18291enq5ck6mopanmh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzTXk4wLdhua9L-FUxOF7CihSLHKsDdSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450003475297-81g3ju1484g9s18291enq5ck6mopanmh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
