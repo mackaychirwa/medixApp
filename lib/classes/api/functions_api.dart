@@ -16,7 +16,19 @@ Future<List<Patients>> fetchPatients() async {
   final response = await http.get(Uri.parse(uri));
   return patientsFromJson(response.body);
 }
+Future Appoint(String doctor) async {
+  String uri = Api().searchApi;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String _user_id = (prefs.getString('user_id') ?? '');
+  Map mapData = {
+    'doctor_name': doctor,
+  };
+  print("Data: ${mapData}");
+  http.Response response = await http.post(Uri.parse(uri), body: mapData);
+  var jsonData =  json.encode(response.body);
+  print("DATA: ${jsonData}");
 
+}
 Future<List<UserData>> fetchUserData() async {
   String uri = Api().userdataApi;
   SharedPreferences prefs = await SharedPreferences.getInstance();

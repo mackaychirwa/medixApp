@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
+import 'package:untitled/classes/api/api.dart';
 import '../classes/api/functions_api.dart';
 import '../models/appointment_model.dart';
 import '../widgets/sidenav.dart';
@@ -17,6 +17,27 @@ class Appointments extends StatefulWidget {
 
 class _AppointmentsState extends State<Appointments> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final String url = Api().searchApi;
+
+  List data = []; //edited line
+
+  Future<String> getSWData() async {
+
+
+    http.Response response = await http.post(Uri.parse(url));
+
+    var resBody = json.decode(response.body);
+
+    setState(() {
+      data = resBody;
+    });
+
+    print(resBody);
+
+    return "Sucess";
+  }
+
+
   var items = ['Apple','Banana','Orange'];
   String dropdownvalue = 'Apple';
 
@@ -39,7 +60,9 @@ class _AppointmentsState extends State<Appointments> {
   @override
   void initState() {
     super.initState();
+    getSWData();
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -102,83 +125,33 @@ class _AppointmentsState extends State<Appointments> {
                     Padding(
                       padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                      child: TextFormField(
-                        controller: _speciality,
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: 20,
-                          ),
-                          labelText: "Speciality",
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                          border: OutlineInputBorder(),
-                        ),
-                        validator: null,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 45, vertical: 15),
-                          child: Text("${selectedDate.toLocal()}".split(' ')[0]),
-                        ),
-                        Container(
-                          height: 60,
-                          width: MediaQuery.of(context).size.width / 2.0,
-                          decoration: const BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    _selectDate(context);
-                                  },
-                                  child: const Text(
-                                    "Pick Date",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
                         ),
-                      ],
-                    ),
-                    Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                      child: TextFormField(
-                        controller: _doctor_name,
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.date_range_rounded,
-                            color: Colors.black,
-                            size: 20,
-                          ),
-                          labelText: "Doctor name",
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                          border: OutlineInputBorder(),
+                        child: DropdownButton(
+                          // Initial Value
+                          value: dropdownvalue,
+                          // Down Arrow Icon
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          // Array list of items
+                          items: data.map((item) {
+                            return DropdownMenuItem(
+                              child: Text(item),
+                              value: item
+                            );
+                          }).toList(),
+                          // After selecting the desired option,it will
+                          // change button value to selected value
+                          onChanged: (dynamic newValue) {
+                            setState(() {
+                              dropdownvalue = newValue;
+                            });
+                          },
                         ),
-                        validator: null,
                       ),
                     ),
                     const SizedBox(height: 25),
@@ -198,8 +171,9 @@ class _AppointmentsState extends State<Appointments> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextButton(
-                              onPressed: () {
-                                Appoint();
+                              onPressed: ()
+                              {
+                                Appoint(_speciality.text);
                               },
                               child: const Text(
                                 "Search",
@@ -218,7 +192,8 @@ class _AppointmentsState extends State<Appointments> {
               ),
             ),
           ],
-        ));
+        ),
+    );
   }
 
   SliverToBoxAdapter _buildSpeciality() {
@@ -313,32 +288,4 @@ class _AppointmentsState extends State<Appointments> {
       ),
     );
   }
-
-  Future Appoint() async {
-    var api = "http://192.168.87.177/api/searchSpecialist.php";
-    Map mapData = {
-      'doctor_name': _doctor_name.text,
-      'specialist': _speciality.text
-    };
-    print("Data: ${mapData}");
-    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    http.Response response = await http.post(Uri.parse(api), body: mapData);
-    var jsonData =  json.encode(response.body);
-    // jsonData = json.decode(response.body);
-    if(jsonData!=null)
-    {
-      // sharedPreferences.setString("email", mapData['email']);
-      // sharedPreferences.setString("role", mapData['role']);
-
-      // Navigator.of(context).pushAndRemoveUntil(
-      //     MaterialPageRoute(builder: (context) =>
-      //     const BottomNav()), (Route<dynamic> route)=> false);
-    } else {
-      print("incorrect password");
-    }
-    print("DATA: ${jsonData}");
-
-  }
-
-
 }

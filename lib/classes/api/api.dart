@@ -8,7 +8,7 @@ class Api {
   Api._internal();
 
   // static String baseUrl = ;
-  static String baseUrl = "http://192.168.158.177/api/";
+  static String baseUrl = "http://192.168.48.150/api/";
   String login = Api.baseUrl+"loginapi.php";
   String path = 'chat/api';
   String dataApi =Api.baseUrl+"data.php";

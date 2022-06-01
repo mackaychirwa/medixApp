@@ -16,7 +16,7 @@ class _RecentMedicalDetailState extends State<RecentMedicalDetail> {
         child: Card(
           child: Column(
             children: [
-              c
+              Container()
             ],
           ),
         ),

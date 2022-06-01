@@ -80,7 +80,10 @@ class _PillReminderState extends State<PillReminder> {
         child: const Center(
           child: Text(
             "Today Pills",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
