@@ -8,7 +8,7 @@ import '../widgets/sidenav.dart';
 import 'chatDetailPage.dart';
 
 class ChatRoom extends StatefulWidget {
- // final bool isMessageRead;
+  // final bool isMessageRead;
 
   const ChatRoom({Key? key}) : super(key: key);
 
@@ -123,7 +123,7 @@ class _ChatRoomState extends State<ChatRoom> {
         padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
         child: TextField(
           decoration: InputDecoration(
-            hintText: "Search...",
+            hintText: "Search.......",
             hintStyle: TextStyle(color: Colors.grey.shade600),
             prefixIcon: Icon(
               Icons.search,
@@ -134,8 +134,11 @@ class _ChatRoomState extends State<ChatRoom> {
             fillColor: Colors.grey.shade100,
             contentPadding: const EdgeInsets.all(8),
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Colors.grey.shade100)),
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(
+                color: Colors.grey.shade100,
+              ),
+            ),
           ),
         ),
       ),
@@ -145,11 +148,13 @@ class _ChatRoomState extends State<ChatRoom> {
   SliverToBoxAdapter _buildChatMessages() {
     return SliverToBoxAdapter(
       child: FutureBuilder(
+          // future: fetchUserData(),
           future: fetchMessage(),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               // print(snapshot);
               return ListView.builder(
+                // itemCount: 2,
                 itemCount: snapshot.data.length,
                 // itemCount: chatUsers.length,
                 shrinkWrap: true,
@@ -168,65 +173,73 @@ class _ChatRoomState extends State<ChatRoom> {
                         ),
                       );
                     },
-                    child: Container(
-                      padding:
-                      const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Row(
-                              children: <Widget>[
-                                const CircleAvatar(
-                                  backgroundImage: AssetImage("assets/images/default.png"),
-                                  maxRadius: 30,
-                                ),
-                                const SizedBox(
-                                  width: 16,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          chatSelect.fromUser,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 6,
-                                        ),
-                                        Text(
-                                          chatSelect.messageText,
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.normal
-                                                // ? FontWeight.bold
-                                                // : FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Text(
-                            chatSelect.sentTime.timeZoneName,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.normal
-                                    // ? FontWeight.bold
-                                    // : FontWeight.normal),
-                            )
-                          ),
-                        ],
-                      ),
+                    child: ConversationList(
+                      fromUser: chatUsers[index].name,
+                      messageText: chatUsers[index].messageText,
+                      // imageUrl: chatUsers[index].imageURL,
+                      sentTime: chatSelect.sentTime,
+                      isMessageRead: (index == 0 || index == 3) ? true : false,
+                      status: chatSelect.status,
                     ),
+                    // child: Container(
+                    //   padding:
+                    //   const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+                    //   child: Row(
+                    //     children: <Widget>[
+                    //       Expanded(
+                    //         child: Row(
+                    //           children: <Widget>[
+                    //             const CircleAvatar(
+                    //               backgroundImage: AssetImage("assets/images/default.png"),
+                    //               maxRadius: 30,
+                    //             ),
+                    //             const SizedBox(
+                    //               width: 16,
+                    //             ),
+                    //             Expanded(
+                    //               child: Container(
+                    //                 color: Colors.transparent,
+                    //                 child: Column(
+                    //                   crossAxisAlignment: CrossAxisAlignment.start,
+                    //                   children: <Widget>[
+                    //                     Text(
+                    //                       chatSelect.fromUser,
+                    //                       style: const TextStyle(
+                    //                         fontSize: 16,
+                    //                       ),
+                    //                     ),
+                    //                     const SizedBox(
+                    //                       height: 6,
+                    //                     ),
+                    //                     Text(
+                    //                       chatSelect.messageText,
+                    //                       style: TextStyle(
+                    //                         fontSize: 13,
+                    //                         color: Colors.grey.shade600,
+                    //                         fontWeight: FontWeight.normal
+                    //                             // ? FontWeight.bold
+                    //                             // : FontWeight.normal,
+                    //                       ),
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //       Text(
+                    //         chatSelect.sentTime.timeZoneName,
+                    //         style: const TextStyle(
+                    //             fontSize: 12,
+                    //             fontWeight: FontWeight.normal
+                    //                 // ? FontWeight.bold
+                    //                 // : FontWeight.normal),
+                    //         )
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   );
                   // return ConversationList(
                   //   fromUser: chatUsers[index].name,
