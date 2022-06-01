@@ -22,18 +22,12 @@ class _AppointmentsState extends State<Appointments> {
   List data = []; //edited line
 
   Future<String> getSWData() async {
-
-
     http.Response response = await http.post(Uri.parse(url));
-
     var resBody = json.decode(response.body);
-
     setState(() {
       data = resBody;
     });
-
     print(resBody);
-
     return "Sucess";
   }
 
@@ -43,7 +37,6 @@ class _AppointmentsState extends State<Appointments> {
 
   DateTime selectedDate = DateTime.now();
   final TextEditingController _speciality = TextEditingController();
-  final TextEditingController _doctor_name = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
