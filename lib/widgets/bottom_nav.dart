@@ -19,6 +19,21 @@ class _BottomNavState extends State<BottomNav> {
     const HomePage(),
     const ChatRoom()
   ];
+  String getLabel(int key) {
+    switch (key) {
+      case 0:
+        return 'Home';
+      case 1:
+        return 'History';
+      case 2:
+        return 'Message';
+      case 3:
+        return 'Message';
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,15 +51,35 @@ class _BottomNavState extends State<BottomNav> {
         unselectedItemColor: Colors.grey,
         elevation: 0.0,
         items: [
+          // BottomNavigationBarItem(
+          //     icon: _currentIndex == 0
+          //         ? Icon(
+          //             Icons.home,
+          //             color: Colors.black,
+          //           )
+          //         : Icon(
+          //             Icons.home,
+          //             color: Colors.blue,
+          //           ),
+          //     label: 'Home'),
+          // const BottomNavigationBarItem(
+          //     icon: Icon(Icons.add_chart_outlined),
+          //     label: 'add_chart_outlined'),
+          // const BottomNavigationBarItem(icon: Icon(Icons.book), label: 'book'),
+          // const BottomNavigationBarItem(
+          //     icon: Icon(Icons.message), label: 'message'),
           Icons.home,
           Icons.add_chart_outlined,
           Icons.book,
           Icons.message
-        ].asMap().map(
+        ]
+            .asMap()
+            .map(
               (key, value) => MapEntry(
                 key,
                 BottomNavigationBarItem(
-                  label: '',
+                  label: _currentIndex == key ? getLabel(key) : '',
+                  // label: '',
                   icon: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 6.0, horizontal: 16.0),
@@ -57,18 +92,10 @@ class _BottomNavState extends State<BottomNav> {
                   ),
                 ),
               ),
-            ).values
-        .toList(),
+            )
+            .values
+            .toList(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        elevation: 0.0,
-        child: const Icon(
-          Icons.qr_code_scanner_sharp,
-        color: Colors.orange,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

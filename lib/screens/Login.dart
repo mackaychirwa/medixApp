@@ -18,7 +18,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _medixController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   // this is for biometrics
@@ -179,7 +179,7 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25, vertical: 20),
                       child: TextFormField(
-                        controller: _emailController,
+                        controller: _medixController,
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(
@@ -187,7 +187,7 @@ class _LoginState extends State<Login> {
                             color: Colors.black,
                             size: 20,
                           ),
-                          labelText: "Email",
+                          labelText: "Medix ID",
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                           ),
@@ -196,7 +196,7 @@ class _LoginState extends State<Login> {
                         validator: (String? value){
                           if(value!.isEmpty)
                           {
-                            return "Please enter email";
+                            return "Please enter Medix ID";
                           }
                           return null;
                         },
@@ -254,17 +254,17 @@ class _LoginState extends State<Login> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                if(_formKey.currentState!.validate())
-                                {
-                                  loginUser(context, '1', _emailController.text, _passwordController.text);
-                                  print("successful");
+                                // if(_formKey.currentState!.validate())
+                                // {
+                                //   loginUser(context, '1', _medixController.text, _passwordController.text);
+                                //   print("successful");
 
-                                } else {
-                                  print("did not work");
-                                }
-                                // Navigator.of(context).pushAndRemoveUntil(
-                                //           MaterialPageRoute(builder: (context) =>
-                                //           const BottomNav()), (Route<dynamic> route)=> false);
+                                // } else {
+                                //   print("did not work");
+                                // }
+                                Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(builder: (context) =>
+                                          const BottomNav()), (Route<dynamic> route)=> false);
                               },
                               child: const Text(
                                 "Sign In",
@@ -299,7 +299,7 @@ class _LoginState extends State<Login> {
                         {
 
                             await _authenticateWithBiometrics();
-                            await loginUser(context, id!, _emailController.text, _passwordController.text);
+                            await loginUser(context, id!, _medixController.text, _passwordController.text);
                           print("successful");
                         } else {
                           print("did not work");
@@ -321,7 +321,7 @@ class _LoginState extends State<Login> {
     var api = "http://192.168.1.162/api/registerapi.php";
 
     Map mapdata = {
-      'email': _emailController.text,
+      'email': _medixController.text,
       'fullname': 'James Chirwa',
       'username': 'Jamie',
       'password': _passwordController.text,

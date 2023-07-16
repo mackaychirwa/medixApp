@@ -90,30 +90,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   SliverToBoxAdapter _buildHeader() {
-    return SliverToBoxAdapter(
+    return const SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20.0),
-        child: FutureBuilder(
-          future: fetchUserData(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if(snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: 1,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    UserData user = snapshot.data![index];
-                    return Text(
-                      "Good Morning ${user.email}",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }
-              );
-            }
-            return const CircularProgressIndicator();
-          }
+        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20.0),
+        child: Text(
+          "Good Morning User",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -167,11 +152,11 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(
               horizontal: 28.0,
             ),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Category",
+                Text(
+                  "Services",
                   style: TextStyle(
                     fontSize: 20.0,
                     height: 1,
@@ -180,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                 InkWell(
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
-                    children: const [
+                    children: [
                       Text(
                         "View all",
                         style: TextStyle(
@@ -237,17 +222,17 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 28.0),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Recent Test Results",
                   style: TextStyle(fontSize: 20.0, height: 1),
                 ),
                 InkWell(
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
-                    children: const [
+                    children: [
                       Text(
                         "View all",
                         style: TextStyle(
@@ -294,10 +279,10 @@ class _HomePageState extends State<HomePage> {
                                          patient.email,
                                           style: const TextStyle(fontSize: 15.0, height: 1),
                                         ),
-                                        InkWell(
+                                        const InkWell(
                                           child: Wrap(
                                             crossAxisAlignment: WrapCrossAlignment.center,
-                                            children: const [
+                                            children: [
                                               Padding(
                                                 padding: EdgeInsets.only(left: 10.0),
                                                 child: Icon(

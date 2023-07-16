@@ -19,12 +19,12 @@ class CategoryCard extends StatelessWidget {
         height: 170,
         width: 140,
         decoration: BoxDecoration(
-          color: Colors.orange,
+          color: Colors.blueGrey,
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(0.1),
                 offset: Offset.zero,
-                blurRadius: 15.0),
+                blurRadius: 15.0,),
           ],
         ),
         child: Center(
